@@ -32,14 +32,21 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-      //  recyclerView = findViewById(R.id.recyclerNoticias);
+        recyclerView = findViewById(R.id.recyclerNews);
 
-      /*  AdapterNews adapterNews = new AdapterNews(listaNews);
+        for (int i=0; i<9 ; i++){
+            listaNews.add(new News("Cabo Daciolo","Benevenuto Daciolo Fonseca dos Santos," +
+                    " mais  conhecido como Cabo Daciolo, é um bombeiro militar e político brasileiro" +
+                    " filiado ao partido Patriota. Em 2014, foi eleito deputado federal pelo Rio de  Janeiro. " +
+                    "Expulso do PSOL em 2015, foi filiado ao  Avante e, atualmente, está filiado ao Patriota.\\n " +
+                    " Glóriaaaa a Deuxxx!"));
+        }
 
+        AdapterNews adapterNews = new AdapterNews(listaNews);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapterNews);*/
+        recyclerView.setAdapter(adapterNews);
 
 
 

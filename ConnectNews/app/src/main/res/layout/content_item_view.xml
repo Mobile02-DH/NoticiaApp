@@ -10,11 +10,11 @@
         android:id="@+id/image_item"
         android:layout_width="0dp"
         android:layout_height="250dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cabo_dacilolo" />
+        app:srcCompat="@drawable/ic_cabo_dacilolo" />
 
     <TextView
         android:id="@+id/txtTitulo"
@@ -22,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Cabo Daciolo"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtNoticias"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_item" />
+        app:layout_constraintTop_toBottomOf="@+id/image_item"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtNoticias"

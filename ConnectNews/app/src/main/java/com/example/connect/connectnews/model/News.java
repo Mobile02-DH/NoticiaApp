@@ -9,7 +9,7 @@ public class News {
     public News() {
     }
 
-    public News(String imagem, String titulo, String noticias) {
+    public News( String titulo, String noticias) {
         this.imagem = imagem;
         this.titulo = titulo;
         this.noticias = noticias;
