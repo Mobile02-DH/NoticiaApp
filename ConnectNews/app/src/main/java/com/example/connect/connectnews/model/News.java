@@ -1,41 +1,44 @@
+
 package com.example.connect.connectnews.model;
+
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class News {
 
-    private String imagem;
-    private String titulo;
-    private String noticias;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("totalResults")
+    @Expose
+    private Integer totalResults;
+    @SerializedName("articles")
+    @Expose
+    private List<Article> articles = null;
 
-    public News() {
+    public String getStatus() {
+        return status;
     }
 
-    public News( String titulo, String noticias) {
-        this.imagem = imagem;
-        this.titulo = titulo;
-        this.noticias = noticias;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getImagem() {
-        return imagem;
+    public Integer getTotalResults() {
+        return totalResults;
     }
 
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
+    public void setTotalResults(Integer totalResults) {
+        this.totalResults = totalResults;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
-    public String getNoticias() {
-        return noticias;
-    }
-
-    public void setNoticias(String noticias) {
-        this.noticias = noticias;
-    }
 }

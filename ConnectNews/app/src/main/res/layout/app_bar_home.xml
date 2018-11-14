@@ -27,11 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabIndicatorGravity="stretch"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabIndicatorGravity="bottom"
             app:tabMinWidth="135dp"
             app:tabMode="scrollable"
+            app:tabPaddingEnd="10dp"
             app:tabTextColor="@android:color/white">
 
             <android.support.design.widget.TabItem

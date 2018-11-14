@@ -1,7 +1,9 @@
 package com.example.connect.connectnews.adapter;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.connect.connectnews.R;
+import com.example.connect.connectnews.model.Article;
 import com.example.connect.connectnews.model.News;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
 
-    private List<News> listaNoticias;
+    private List<Article> articleList;
 
     public AdapterNews() {
     }
 
-    public AdapterNews(List<News> lista) {
-        this.listaNoticias = lista;
+    public AdapterNews(List<Article> lista) {
+        this.articleList= lista;
     }
 
     @NonNull
@@ -36,15 +40,30 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        News news = listaNoticias.get(i);
-        viewHolder.titulo.setText(news.getTitulo());
-        viewHolder.noticia.setText(news.getNoticias());
+        Article article = articleList.get(i);
+        viewHolder.titulo.setText(article.getTitle());
+        viewHolder.noticia.setText( article.getDescription());
+
+        if (article.getUrlToImage()!= null && !article.getUrlToImage().equals("")) {
+            Picasso.get().load(article.getUrlToImage())
+                    .error(R.drawable.ic_logotop)
+                    .placeholder(R.drawable.ic_logotop)
+                    .into(viewHolder.imagem);
+        }else {
+            viewHolder.imagem.setImageResource(R.drawable.ic_logotop);
+        }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return listaNoticias.size();
+        return articleList.size();
+    }
+
+    public void update(List<Article> articleList) {
+        this.articleList = articleList;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

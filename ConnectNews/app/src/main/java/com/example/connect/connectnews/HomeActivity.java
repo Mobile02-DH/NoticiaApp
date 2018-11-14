@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,12 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.connect.connectnews.adapter.AdapterNews;
 import com.example.connect.connectnews.adapter.CategoryPageAdapter;
 import com.example.connect.connectnews.fragments.NewsFragment;
-import com.example.connect.connectnews.model.Categoria;
-import com.example.connect.connectnews.model.News;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,13 +118,13 @@ public class HomeActivity extends AppCompatActivity
 
         ArrayList<Fragment> fragments = new ArrayList<>();
 
-         fragments.add(NewsFragment.newInstance("Negocios"));
-         fragments.add(NewsFragment.newInstance("Entreterimento"));
-         fragments.add(NewsFragment.newInstance("Geral"));
-         fragments.add(NewsFragment.newInstance("Saúde"));
-         fragments.add(NewsFragment.newInstance("Ciência"));
-         fragments.add(NewsFragment.newInstance("Esporte"));
-         fragments.add(NewsFragment.newInstance("Tecnologia"));
+         fragments.add(NewsFragment.newInstance("business"));
+         fragments.add(NewsFragment.newInstance("entertainment"));
+         fragments.add(NewsFragment.newInstance("general"));
+         fragments.add(NewsFragment.newInstance("health"));
+         fragments.add(NewsFragment.newInstance("science"));
+         fragments.add(NewsFragment.newInstance("sports"));
+         fragments.add(NewsFragment.newInstance("technology"));
 
 
 
