@@ -24,6 +24,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
     TabLayout tabLayout;
     private ViewPager viewPager;
     CategoryPageAdapter categoryPageAdapter = new CategoryPageAdapter(getSupportFragmentManager(),criarCategorias());
