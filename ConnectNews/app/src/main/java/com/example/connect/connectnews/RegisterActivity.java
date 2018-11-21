@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String textoSenha = campoSenha.getText().toString();
 
                 if(TextUtils.isEmpty(textoEmail)){
-                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Please fil in the required fields",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(textoSenha)){
