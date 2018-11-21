@@ -5,6 +5,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +20,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.connect.connectnews.adapter.CategoryPageAdapter;
+import com.example.connect.connectnews.fragments.NewsFragment;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,10 +32,15 @@ import com.squareup.picasso.Picasso;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    TabLayout tabLayout;
+    private ViewPager viewPager;
+    CategoryPageAdapter categoryPageAdapter = new CategoryPageAdapter(getSupportFragmentManager(),criarCategorias());
     RecyclerView recyclerView;
     ArrayList<News> listaNews = new ArrayList<>();
     TextView txtEmail;
@@ -42,17 +52,11 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //printKeyHash();
-
         recyclerView = findViewById(R.id.recyclerNews);
+        tabLayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.container);
 
-        for (int i=0; i<9 ; i++){
-            listaNews.add(new News("Cabo Daciolo","Benevenuto Daciolo Fonseca dos Santos," +
-                    " mais  conhecido como Cabo Daciolo, é um bombeiro militar e político brasileiro" +
-                    " filiado ao partido Patriota. Em 2014, foi eleito deputado federal pelo Rio de  Janeiro. " +
-                    "Expulso do PSOL em 2015, foi filiado ao  Avante e, atualmente, está filiado ao Patriota.\\n " +
-                    " Glóriaaaa a Deuxxx!"));
-        }
+        viewPager.setAdapter(categoryPageAdapter);
 
         AdapterNews adapterNews = new AdapterNews(listaNews);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -60,7 +64,8 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapterNews);
 
-
+      viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+      tabLayout.addOnTabSelectedListener( new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -162,4 +167,23 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private List<Fragment>criarCategorias(){
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+
+         fragments.add(NewsFragment.newInstance("business"));
+         fragments.add(NewsFragment.newInstance("entertainment"));
+         fragments.add(NewsFragment.newInstance("general"));
+         fragments.add(NewsFragment.newInstance("health"));
+         fragments.add(NewsFragment.newInstance("science"));
+         fragments.add(NewsFragment.newInstance("sports"));
+         fragments.add(NewsFragment.newInstance("technology"));
+
+
+
+        return fragments;
+    }
+
+
 }
