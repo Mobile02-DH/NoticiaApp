@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,10 +36,24 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+
 
                 String textoEmail = campoEmail.getText().toString();
                 String textoSenha = campoSenha.getText().toString();
+
+                if(TextUtils.isEmpty(textoEmail)){
+                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(textoSenha)){
+                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(textoSenha.length() < 6){
+                    Toast.makeText(getApplicationContext(),"Password must be at least 6 characters",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
                 if( !textoEmail.isEmpty()){
@@ -49,6 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
                         usuario.setSenha(textoSenha);
 
                         cadastrarUsuario();
+
+                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
 
                     }else{
                         Toast.makeText(RegisterActivity.this,
