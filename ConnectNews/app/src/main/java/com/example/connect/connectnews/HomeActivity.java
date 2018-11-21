@@ -2,11 +2,9 @@ package com.example.connect.connectnews;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,40 +13,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.connect.connectnews.adapter.CategoryPageAdapter;
+import com.example.connect.connectnews.fragments.NewsFragment;
 
-import com.example.connect.connectnews.adapter.AdapterNews;
-import com.example.connect.connectnews.model.News;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    RecyclerView recyclerView;
-    ArrayList<News> listaNews = new ArrayList<>();
+
+    TabLayout tabLayout;
+    private ViewPager viewPager;
+    CategoryPageAdapter categoryPageAdapter = new CategoryPageAdapter(getSupportFragmentManager(),criarCategorias());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        recyclerView = findViewById(R.id.recyclerNews);
+        tabLayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.container);
 
-        for (int i=0; i<9 ; i++){
-            listaNews.add(new News("Cabo Daciolo","Benevenuto Daciolo Fonseca dos Santos," +
-                    " mais  conhecido como Cabo Daciolo, é um bombeiro militar e político brasileiro" +
-                    " filiado ao partido Patriota. Em 2014, foi eleito deputado federal pelo Rio de  Janeiro. " +
-                    "Expulso do PSOL em 2015, foi filiado ao  Avante e, atualmente, está filiado ao Patriota.\\n " +
-                    " Glóriaaaa a Deuxxx!"));
-        }
-
-        AdapterNews adapterNews = new AdapterNews(listaNews);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapterNews);
+        viewPager.setAdapter(categoryPageAdapter);
 
 
+      viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+      tabLayout.addOnTabSelectedListener( new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -121,4 +114,23 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private List<Fragment>criarCategorias(){
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+
+         fragments.add(NewsFragment.newInstance("business"));
+         fragments.add(NewsFragment.newInstance("entertainment"));
+         fragments.add(NewsFragment.newInstance("general"));
+         fragments.add(NewsFragment.newInstance("health"));
+         fragments.add(NewsFragment.newInstance("science"));
+         fragments.add(NewsFragment.newInstance("sports"));
+         fragments.add(NewsFragment.newInstance("technology"));
+
+
+
+        return fragments;
+    }
+
+
 }
