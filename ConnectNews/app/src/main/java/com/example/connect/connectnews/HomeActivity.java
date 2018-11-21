@@ -2,21 +2,23 @@ package com.example.connect.connectnews;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.connect.connectnews.adapter.CategoryPageAdapter;
 import com.example.connect.connectnews.fragments.NewsFragment;
-
-
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class HomeActivity extends AppCompatActivity
     TabLayout tabLayout;
     private ViewPager viewPager;
     CategoryPageAdapter categoryPageAdapter = new CategoryPageAdapter(getSupportFragmentManager(),criarCategorias());
+    TextView txtEmail;
+    TextView txtName;
+    private ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,18 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        txtName = navigationView.getHeaderView(0).findViewById(R.id.tv_name);
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
+        avatar = navigationView.getHeaderView(0).findViewById(R.id.avatar);
+
+        Intent intent = getIntent();
+        String nome = intent.getStringExtra("nome");
+        String image = intent.getStringExtra("image");
+
+        txtName.setText(nome);
+        Picasso.get().load(image).error(R.drawable.cabo_dacilolo).into(avatar);
+
     }
 
     @Override
