@@ -28,14 +28,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        campoEmail = findViewById(R.id.txt_email);
-        campoSenha = findViewById(R.id.txt_password);
+        campoEmail = findViewById(R.id.txt_registrar_email);
+        campoSenha = findViewById(R.id.txt_registrar_senha);
         btnRegisterNow = findViewById(R.id.btn_register_now);
 
         btnRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
 
                 String textoEmail = campoEmail.getText().toString();
                 String textoSenha = campoSenha.getText().toString();
