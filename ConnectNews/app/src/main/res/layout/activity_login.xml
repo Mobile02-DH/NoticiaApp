@@ -82,12 +82,12 @@
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button_fb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="367dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="24dp"
-        android:drawableLeft="@drawable/ic_facebook"
         android:drawableStart="@drawable/ic_facebook"
-        android:textAllCaps="true"/>
+        android:drawableLeft="@drawable/ic_facebook"
+        android:textAllCaps="true" />
 
 
 

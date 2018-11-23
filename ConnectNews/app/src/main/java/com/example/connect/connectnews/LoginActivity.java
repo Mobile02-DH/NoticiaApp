@@ -3,14 +3,19 @@ package com.example.connect.connectnews;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.connect.connectnews.configuracaoFirebase.FirebaseConfiguracao;
+import com.example.connect.connectnews.model.Usuario;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -19,6 +24,14 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -30,6 +43,11 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private EditText campoEmail, campoSenha;
+    private Button botaoLogin;
+    private Usuario usuario;
+    private FirebaseAuth autenticacao;
+
     CallbackManager callbackManager;
     TextView txtEmail;
     ProgressDialog mDialog;
@@ -38,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -46,8 +64,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button botaoLogin = findViewById(R.id.button_login);
+        botaoLogin = findViewById(R.id.button_login);
         TextView txtRegister = findViewById(R.id.textview_register_now);
+        campoEmail = findViewById(R.id.txt_email);
+        campoSenha = findViewById(R.id.txt_password);
 
         initViews();
 
@@ -55,25 +75,91 @@ public class LoginActivity extends AppCompatActivity {
         botaoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (AccessToken.getCurrentAccessToken() != null){
+                if (AccessToken.getCurrentAccessToken() != null) {
                     getUserProfile();
+                }
+                String textoEmail = campoEmail.getText().toString();
+                String textoSenha = campoSenha.getText().toString();
+
+
+                if (!textoEmail.isEmpty()) {
+                    if (!textoSenha.isEmpty()) {
+
+                        usuario = new Usuario();
+                        usuario.setEmail(textoEmail);
+                        usuario.setSenha(textoSenha);
+                        validarLogin();
+
+                    } else {
+                        Toast.makeText(LoginActivity.this,
+                                "Preencha o Password", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(LoginActivity.this,
+                            "Preencha o E-mail", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-
-
-
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
 
         methodbuttonfb();
 
     }
+
+    public void validarLogin() {
+        autenticacao = FirebaseConfiguracao.getFirebaseAutenticacao();
+        autenticacao.signInWithEmailAndPassword(
+                usuario.getEmail(),
+                usuario.getSenha()
+        ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    abrirHome();
+
+
+                    Toast.makeText(LoginActivity.this,
+                            "sucesso ao fazer login", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    String excecao = "";
+                    try {
+                        throw task.getException();
+
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        excecao = "Usuario nao esta cadastrado";
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                        excecao = "email e senha não corresponde a um usuario cadastrado";
+                    } catch (Exception e) {
+                        excecao = "Erro ao cadastrar usuario: " + e.getMessage();
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(LoginActivity.this,
+                            excecao, Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        });
+
+
+    }
+
+    public void abrirHome() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+
+    }
+
 
     private void methodbuttonfb() {
 
@@ -88,23 +174,6 @@ public class LoginActivity extends AppCompatActivity {
                 mDialog.setMessage("Retrieving data...");
                 mDialog.show();
 
-         /*       String accesstoken = loginResult.getAccessToken().getToken();
-
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        mDialog.dismiss();
-                        Log.d("response", response.toString());
-//                        getData(object);
-
-                    }
-                });
-
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, email, birthday, friends");
-                request.setParameters(parameters);
-                request.executeAsync();*/
 
                 getUserProfile();
             }
@@ -120,8 +189,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        if (AccessToken.getCurrentAccessToken() != null){
-           //txtEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
+        if (AccessToken.getCurrentAccessToken() != null) {
+            //txtEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
         }
 
     }
