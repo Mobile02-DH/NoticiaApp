@@ -58,13 +58,13 @@
             app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/btn_user_like"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNoticias"
