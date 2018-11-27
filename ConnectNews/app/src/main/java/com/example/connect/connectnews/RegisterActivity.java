@@ -11,11 +11,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.connect.connectnews.configuracaoFirebase.FirebaseConfiguracao;
+import com.example.connect.connectnews.helper.Base64Custom;
+import com.example.connect.connectnews.helper.Preferencias;
 import com.example.connect.connectnews.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -65,8 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                         cadastrarUsuario();
 
-                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-
                     }else{
                         Toast.makeText(RegisterActivity.this,
                                 "Preencha o Password",Toast.LENGTH_SHORT).show();
@@ -87,17 +89,42 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     Toast.makeText(RegisterActivity.this,
-                            "Sucesso ao cadastrar usuario",Toast.LENGTH_SHORT).show();
+                            "Sucesso ao cadastrar usuario", Toast.LENGTH_SHORT).show();
+
+                    String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                    FirebaseUser usuarioFirebase = task.getResult().getUser();
+                    usuario.setId((identificadorUsuario));
+                    usuario.salvar();
+
+                    Preferencias preferencias = new Preferencias(RegisterActivity.this);
+                    preferencias.salvarUsuarioPreferencias(identificadorUsuario, usuario.getNome());
+
+                    abrirLoginUsuario();
 
                 }else{
-                    Toast.makeText(RegisterActivity.this,
-                            "Erro ao cadastrar usuario",Toast.LENGTH_SHORT).show();
+                    String erroExcecao;
+
+                    try {
+                        throw task.getException();
+                    } catch (FirebaseAuthUserCollisionException e) {
+                        erroExcecao = "Esse e-mail já está cadastrado";
+                    } catch (Exception e) {
+                        erroExcecao = "Erro ao efetuar o cadastro!";
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(RegisterActivity.this, "Erro: " +erroExcecao, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+  }
+
+  public void abrirLoginUsuario() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
   }
 }
