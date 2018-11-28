@@ -58,18 +58,19 @@
             app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/btn_user_like"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNoticias"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/heart" />
+            app:srcCompat="@drawable/ic_favorite_border_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
         <ImageView
             android:id="@+id/imageView6"
@@ -83,7 +84,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNoticias"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/share" />
+            app:srcCompat="@drawable/ic_share_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>
