@@ -1,9 +1,9 @@
 package com.example.connect.connectnews;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.connect.connectnews.configuracaoFirebase.FirebaseConfiguracao;
+import com.example.connect.connectnews.helper.Base64Custom;
+import com.example.connect.connectnews.helper.Preferencias;
 import com.example.connect.connectnews.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -68,8 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                         cadastrarUsuario();
 
-                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-
                     }else{
                         Toast.makeText(RegisterActivity.this,
                                 "Preencha o Password",Toast.LENGTH_SHORT).show();
@@ -91,10 +92,20 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     Toast.makeText(RegisterActivity.this,
-                            "Sucesso ao cadastrar usuario",Toast.LENGTH_SHORT).show();
+                            "Sucesso ao cadastrar usuario", Toast.LENGTH_SHORT).show();
+
+                    String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                    FirebaseUser usuarioFirebase = task.getResult().getUser();
+                    usuario.setId((identificadorUsuario));
+                    usuario.salvar();
+
+                    Preferencias preferencias = new Preferencias(RegisterActivity.this);
+                    preferencias.salvarUsuarioPreferencias(identificadorUsuario, usuario.getNome());
+
+                    abrirLoginUsuario();
 
                 }else{
                     String excecao = "";
@@ -118,5 +129,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+  }
+
+  public void abrirLoginUsuario() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
   }
 }
