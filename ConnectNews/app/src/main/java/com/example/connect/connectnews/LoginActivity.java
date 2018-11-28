@@ -30,8 +30,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -54,8 +52,6 @@ public class LoginActivity extends AppCompatActivity {
     ImageView imgAvatar;
     EditText edt_email;
     EditText edt_senha;
-    FirebaseAuth autenticacao;
-    private Usuario usuario;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -70,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
 
         botaoLogin = findViewById(R.id.button_login);
         TextView txtRegister = findViewById(R.id.textview_register_now);
-        campoEmail = findViewById(R.id.txt_email);
-        campoSenha = findViewById(R.id.txt_password);
+        campoEmail = findViewById(R.id.edt_email);
+        campoSenha = findViewById(R.id.edt_password);
 
         initViews();
 
