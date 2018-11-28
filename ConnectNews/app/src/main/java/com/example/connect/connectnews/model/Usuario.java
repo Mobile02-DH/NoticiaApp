@@ -12,6 +12,16 @@ public class Usuario {
    private String email;
    private String senha;
    private String id;
+   private String favoritos;
+
+
+    public String getFavoritos() {
+        return favoritos;
+    }
+
+    public void setFavoritos(String favoritos) {
+        this.favoritos = favoritos;
+    }
 
     public String getNome() {
         return nome;
@@ -39,6 +49,11 @@ public class Usuario {
         referenceFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
     }
 
+    public void favoritar(){
+        DatabaseReference referenceFirebase = FirebaseConfiguracao.getFirebase();
+        referenceFirebase.child("favorite").child("usuario").setValue(this);
+    }
+
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String,Object> hashMapUsuario = new HashMap<>();
@@ -47,6 +62,7 @@ public class Usuario {
         hashMapUsuario.put("email", getEmail());
         hashMapUsuario.put("senha", getSenha());
         hashMapUsuario.put("nome", getNome());
+        hashMapUsuario.put("favorite", getFavoritos());
 
         return hashMapUsuario;
     }
