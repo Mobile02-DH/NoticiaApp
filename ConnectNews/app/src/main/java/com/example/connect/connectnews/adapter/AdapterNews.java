@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import com.example.connect.connectnews.R;
 import com.example.connect.connectnews.model.Article;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
+public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
 
     private List<Article> articleList;
 
@@ -22,7 +24,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
     }
 
     public AdapterNews(List<Article> lista) {
-        this.articleList= lista;
+        this.articleList = lista;
     }
 
     @NonNull
@@ -30,7 +32,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View itemNews = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.content_item_view,viewGroup,false);
+                .inflate(R.layout.content_item_view, viewGroup, false);
         return new ViewHolder(itemNews);
     }
 
@@ -39,14 +41,15 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
 
         Article article = articleList.get(i);
         viewHolder.titulo.setText(article.getTitle());
-        viewHolder.noticia.setText( article.getDescription());
+        viewHolder.noticia.setText(article.getDescription());
 
-        if (article.getUrlToImage()!= null && !article.getUrlToImage().equals("")) {
+
+        if (article.getUrlToImage() != null && !article.getUrlToImage().equals("")) {
             Picasso.get().load(article.getUrlToImage())
                     .error(R.drawable.ic_logotop)
                     .placeholder(R.drawable.ic_logotop)
                     .into(viewHolder.imagem);
-        }else {
+        } else {
             viewHolder.imagem.setImageResource(R.drawable.ic_logotop);
         }
 
@@ -68,13 +71,33 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder>{
         ImageView imagem;
         TextView titulo;
         TextView noticia;
+        ImageView favoritos;
 
 
-    public ViewHolder(@NonNull View itemView) {
-        super(itemView);
-        imagem = itemView.findViewById(R.id.image_item);
-        titulo = itemView.findViewById(R.id.txtTitulo);
-        noticia = itemView.findViewById(R.id.txtNoticias);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imagem = itemView.findViewById(R.id.image_item);
+            titulo = itemView.findViewById(R.id.txtTitulo);
+            noticia = itemView.findViewById(R.id.txtNoticias);
+            favoritos = itemView.findViewById(R.id.btn_user_like);
+
+
+        }
+
+        public void bind(final Article article) {
+            favoritos.setOnClickListener(new View.OnClickListener() {
+
+                private DatabaseReference firebase;
+
+                @Override
+                public void onClick(View v) {
+                    firebase = FirebaseDatabase.getInstance().getReference();
+                    firebase.child("usuario").setValue(article);
+
+
+                }
+
+            });
+        }
     }
-}
 }

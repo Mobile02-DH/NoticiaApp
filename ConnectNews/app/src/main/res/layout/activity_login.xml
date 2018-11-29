@@ -80,31 +80,30 @@
 
     </LinearLayout>
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button_fb"
-        android:layout_width="367dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/ic_facebook"
-        android:drawableLeft="@drawable/ic_facebook"
-        android:textAllCaps="true" />
-
-
-
     <android.support.v7.widget.AppCompatButton
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:drawableStart="@drawable/ic_google"
         android:drawableLeft="@drawable/ic_google"
         android:text="login with google"
         app:backgroundTint="@color/google" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button_fb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:drawableStart="@drawable/ic_facebook"
+        android:drawableLeft="@drawable/ic_facebook"
+        android:textAllCaps="true" />
+
     <TextView
         android:id="@+id/textview_register_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:gravity="end"
         android:text="register now"
         android:textAllCaps="true" />

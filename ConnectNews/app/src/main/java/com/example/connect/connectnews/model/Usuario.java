@@ -49,9 +49,11 @@ public class Usuario {
         referenceFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
     }
 
-    public void favoritar(){
+    public void favoritar(Article article){
         DatabaseReference referenceFirebase = FirebaseConfiguracao.getFirebase();
-        referenceFirebase.child("favorite").child("usuario").setValue(this);
+        referenceFirebase.child("usuario").child("favoritos").setValue(article);
+
+
     }
 
     @Exclude

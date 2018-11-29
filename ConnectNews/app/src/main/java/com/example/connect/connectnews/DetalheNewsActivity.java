@@ -20,7 +20,7 @@ public class DetalheNewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe_news);
 
         Bundle extras = getIntent().getExtras();
-       ;
+
 
         webView = findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
