@@ -45,12 +45,13 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
 
 
         if (article.getUrlToImage() != null && !article.getUrlToImage().equals("")) {
+
             Picasso.get().load(article.getUrlToImage())
                     .error(R.drawable.ic_logotop)
                     .placeholder(R.drawable.ic_logotop)
                     .into(viewHolder.imagem);
         } else {
-            viewHolder.imagem.setImageResource(R.drawable.ic_logotop);
+            viewHolder.imagem.setVisibility(View.GONE);
         }
 
 
