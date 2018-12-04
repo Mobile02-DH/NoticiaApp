@@ -54,7 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <View
@@ -84,7 +84,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:drawableStart="@drawable/ic_google"
         android:drawableLeft="@drawable/ic_google"
         android:text="login with google"
@@ -94,16 +94,20 @@
         android:id="@+id/login_button_fb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
         android:drawableStart="@drawable/ic_facebook"
         android:drawableLeft="@drawable/ic_facebook"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textAllCaps="true" />
 
     <TextView
         android:id="@+id/textview_register_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:gravity="end"
         android:text="register now"
         android:textAllCaps="true" />
