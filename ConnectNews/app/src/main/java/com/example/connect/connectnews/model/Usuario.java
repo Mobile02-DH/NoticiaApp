@@ -51,7 +51,7 @@ public class Usuario {
 
     public void favoritar(){
         DatabaseReference referenceFirebase = FirebaseConfiguracao.getFirebase();
-        referenceFirebase.child("favorite").child("usuario").setValue(this);
+        referenceFirebase.child("favorito").child("usuario").setValue(this);
     }
 
     @Exclude
@@ -62,7 +62,7 @@ public class Usuario {
         hashMapUsuario.put("email", getEmail());
         hashMapUsuario.put("senha", getSenha());
         hashMapUsuario.put("nome", getNome());
-        hashMapUsuario.put("favorite", getFavoritos());
+        hashMapUsuario.put("favorito", getFavoritos());
 
         return hashMapUsuario;
     }

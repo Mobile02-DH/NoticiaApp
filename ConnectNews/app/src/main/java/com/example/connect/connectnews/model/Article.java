@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Article {
+    private String chave;
 
     @SerializedName("source")
     @Expose
@@ -30,6 +31,14 @@ public class Article {
     @SerializedName("content")
     @Expose
     private String content;
+
+    public String getChave() {
+        return chave;
+    }
+
+    public void setChave(String chave) {
+        this.chave = chave;
+    }
 
     public Source getSource() {
         return source;
