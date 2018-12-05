@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.connect.connectnews.FavoritoActivity;
+import com.example.connect.connectnews.LoginActivity;
 import com.example.connect.connectnews.R;
 import com.example.connect.connectnews.model.Article;
 import com.google.firebase.database.DatabaseReference;
@@ -95,14 +96,19 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    emailUsuario = autenticacao.getCurrentUser().getUid();
+                    if(autenticacao.getCurrentUser() != null){
+                        emailUsuario = autenticacao.getCurrentUser().getUid();
 
-                    databaseReference.child(emailUsuario).child("favoritos").push().setValue(article);
+                        databaseReference.child(emailUsuario).child("favoritos").push().setValue(article);
 
-                    Toast.makeText(v.getContext(), "Noticia Salva", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "Noticia Salva", Toast.LENGTH_SHORT).show();
 
-                   // Intent intent = new Intent(v.getContext(),FavoritoActivity.class);
-                    //v.getContext().startActivity(intent);
+                        // Intent intent = new Intent(v.getContext(),FavoritoActivity.class);
+                        //v.getContext().startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(v.getContext(),LoginActivity.class);
+                        v.getContext().startActivity(intent);
+                    }
                 }
             });
         }
