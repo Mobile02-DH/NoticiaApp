@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.connect.connectnews.adapter.CategoryPageAdapter;
 import com.example.connect.connectnews.fragments.NewsFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +44,6 @@ public class HomeActivity extends AppCompatActivity
         viewPager = findViewById(R.id.container);
 
         viewPager.setAdapter(categoryPageAdapter);
-
 
       viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
       tabLayout.addOnTabSelectedListener( new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
@@ -116,6 +116,15 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_connectnews) {
             // Handle the camera action
         } else if (id == R.id.nav_myfavorites) {
+            FirebaseAuth autenticacao = FirebaseAuth.getInstance();
+
+            if (autenticacao.getCurrentUser() != null){
+
+                startActivity(new Intent(getApplicationContext(),FavoritoActivity.class));
+            }else {
+
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
 
         } else if (id == R.id.nav_preferences) {
 
@@ -123,6 +132,8 @@ public class HomeActivity extends AppCompatActivity
 
         }  else if (id == R.id.nav_exit) {
 
+            FirebaseAuth autenticacao = FirebaseAuth.getInstance();
+            autenticacao.signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -141,8 +152,6 @@ public class HomeActivity extends AppCompatActivity
          fragments.add(NewsFragment.newInstance("science"));
          fragments.add(NewsFragment.newInstance("sports"));
          fragments.add(NewsFragment.newInstance("technology"));
-
-
 
         return fragments;
     }

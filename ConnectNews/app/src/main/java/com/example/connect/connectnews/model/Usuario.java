@@ -49,11 +49,9 @@ public class Usuario {
         referenceFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
     }
 
-    public void favoritar(Article article){
+    public void favoritar(){
         DatabaseReference referenceFirebase = FirebaseConfiguracao.getFirebase();
-        referenceFirebase.child("usuario").child("favoritos").setValue(article);
-
-
+        referenceFirebase.child("favorito").child("usuario").setValue(this);
     }
 
     @Exclude
@@ -64,7 +62,7 @@ public class Usuario {
         hashMapUsuario.put("email", getEmail());
         hashMapUsuario.put("senha", getSenha());
         hashMapUsuario.put("nome", getNome());
-        hashMapUsuario.put("favorite", getFavoritos());
+        hashMapUsuario.put("favorito", getFavoritos());
 
         return hashMapUsuario;
     }
