@@ -80,15 +80,6 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatButton
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:drawableStart="@drawable/ic_google"
-        android:drawableLeft="@drawable/ic_google"
-        android:text="login with google"
-        app:backgroundTint="@color/google" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button_fb"
@@ -102,6 +93,15 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textAllCaps="true" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_login_google"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"/>
+
 
     <TextView
         android:id="@+id/textview_register_now"

@@ -2,9 +2,11 @@ package com.example.connect.connectnews;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,12 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,12 +47,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     private EditText campoEmail, campoSenha;
     private Button botaoLogin;
     private Usuario usuario;
     private FirebaseAuth autenticacao;
+    private GoogleApiClient googleApiClient;
+    private SignInButton botaoGoogle;
+
+    public static final int SIGN_IN_CODE = 777;
 
     CallbackManager callbackManager;
     TextView txtEmail;
@@ -53,24 +65,42 @@ public class LoginActivity extends AppCompatActivity {
     EditText edt_email;
     EditText edt_senha;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+       googleApiClient = new GoogleApiClient.Builder(this)
+               .enableAutoManage(this,this)
+               .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+               .build();
+
+
         botaoLogin = findViewById(R.id.button_login);
         TextView txtRegister = findViewById(R.id.textview_register_now);
         campoEmail = findViewById(R.id.edt_email);
         campoSenha = findViewById(R.id.edt_password);
+        botaoGoogle = findViewById(R.id.btn_login_google);
+        botaoGoogle.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,SIGN_IN_CODE);
+
+            }
+        });
+
+
 
         initViews();
-
 
         botaoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,4 +291,35 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode, data);
+
+        if( requestCode == 777){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if(result.isSuccess()){
+            goMainScreen();
+
+        }else{
+            Toast.makeText(this,"não iniciado",Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    private void goMainScreen() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
