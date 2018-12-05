@@ -21,15 +21,17 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".DetalheNewsActivity"></activity>
+        <activity android:name=".DetalheNewsActivity" />
+        <activity android:name=".FavoritoActivity"></activity>
     </application>
 
 </manifest>
