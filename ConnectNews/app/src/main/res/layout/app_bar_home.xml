@@ -20,19 +20,19 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="ConnectNews"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title" />
+            app:titleTextColor="@color/common_google_signin_btn_text_dark_focused" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabIndicatorColor="#000000"
             app:tabIndicatorGravity="bottom"
             app:tabMinWidth="135dp"
             app:tabMode="scrollable"
             app:tabPaddingEnd="10dp"
-            app:tabTextColor="@android:color/white">
+            app:tabTextColor="#000000">
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entreterimento" />
+                android:text="Entretenimento" />
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"

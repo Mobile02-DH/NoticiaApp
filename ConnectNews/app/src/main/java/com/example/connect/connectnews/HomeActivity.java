@@ -13,11 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connect.connectnews.adapter.CategoryPageAdapter;
 import com.example.connect.connectnews.fragments.NewsFragment;
+import com.example.connect.connectnews.model.Article;
+import com.example.connect.connectnews.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +44,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.container);
 
@@ -60,17 +65,21 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        FirebaseAuth autenticacao = FirebaseAuth.getInstance();
+        Usuario usuario = new Usuario();
 
         txtName = navigationView.getHeaderView(0).findViewById(R.id.tv_name);
         txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
-        avatar = navigationView.getHeaderView(0).findViewById(R.id.avatar);
+       // avatar = navigationView.getHeaderView(0).findViewById(R.id.avatar);
 
         Intent intent = getIntent();
-        String nome = intent.getStringExtra("nome");
-        String image = intent.getStringExtra("image");
+        //String nome = autenticacao.getLanguageCode();
+       // String image = intent.getStringExtra("image");
 
-        txtName.setText(nome);
-        Picasso.get().load(image).error(R.drawable.cabo_dacilolo).into(avatar);
+       // txtName.setText(nome);
+        //Picasso.get().load(image).error(R.drawable.cabo_dacilolo).into(avatar);
+
+
 
     }
 
@@ -129,6 +138,8 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_preferences) {
 
         } else if (id == R.id.nav_profile) {
+
+            startActivity(new Intent(this,RegisterActivity.class));
 
         }  else if (id == R.id.nav_exit) {
 

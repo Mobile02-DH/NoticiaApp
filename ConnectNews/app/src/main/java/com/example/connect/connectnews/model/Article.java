@@ -60,8 +60,9 @@ public class Article {
         return title;
     }
 
-    public void setTitle(String title) {
+    public String setTitle(String title) {
         this.title = title;
+        return title;
     }
 
     public String getDescription() {
@@ -76,8 +77,9 @@ public class Article {
         return url;
     }
 
-    public void setUrl(String url) {
+    public String setUrl(String url) {
         this.url = url;
+        return url;
     }
 
     public String getUrlToImage() {

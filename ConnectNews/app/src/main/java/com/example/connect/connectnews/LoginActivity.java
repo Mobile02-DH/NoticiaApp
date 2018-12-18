@@ -1,5 +1,6 @@
 package com.example.connect.connectnews;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.connect.connectnews.configuracaoFirebase.FirebaseConfiguracao;
 import com.example.connect.connectnews.model.Usuario;
@@ -69,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager callbackManager;
     private static final int RC_SIGN_GOOGLE = 9001;
+    private Toolbar toolbar;
 
 
 
@@ -83,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         register = findViewById(R.id.textview_register_now);
         txtEmail = findViewById(R.id.edt_email);
         txtPassword = findViewById(R.id.edt_password);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 

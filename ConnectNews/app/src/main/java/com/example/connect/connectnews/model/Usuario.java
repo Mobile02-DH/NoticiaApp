@@ -71,8 +71,9 @@ public class Usuario {
         return email;
     }
 
-    public void setEmail(String email) {
+    public String setEmail(String email) {
         this.email = email;
+        return email;
     }
 
     public String getSenha() {

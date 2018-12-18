@@ -2,6 +2,7 @@ package com.example.connect.connectnews.adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -58,6 +59,7 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.ViewHo
         TextView titulo;
         TextView noticia;
         ImageView delete;
+        ImageView share1;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,7 +68,7 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.ViewHo
             titulo = itemView.findViewById(R.id.txtTitulo);
             noticia = itemView.findViewById(R.id.txtNoticias);
             delete = itemView.findViewById(R.id.image_delete);
-
+            share1 = itemView.findViewById(R.id.image_compartilhar1);
         }
 
         public void bind(final Article article) {
@@ -105,6 +107,24 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.ViewHo
                     //excluirNews(article);
                 }
             });
+
+            share1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Intent myIntent = new Intent(Intent.ACTION_SEND);
+                    myIntent.setType("text/plain");
+                    String shareBody = article.getUrl();
+                    String shareSub = article.getTitle();
+                    myIntent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                    myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                    v.getContext().startActivity(Intent.createChooser(myIntent,"Compartilhar"));
+
+                    Toast.makeText(v.getContext(),"Compartilhar", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     }
 

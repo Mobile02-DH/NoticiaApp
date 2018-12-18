@@ -68,6 +68,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
         private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuario");
         private FirebaseAuth autenticacao = FirebaseAuth.getInstance();
         String emailUsuario;
+        ImageView share;
 
 
     public ViewHolder(@NonNull View itemView) {
@@ -76,6 +77,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
         titulo = itemView.findViewById(R.id.txtTitulo);
         noticia = itemView.findViewById(R.id.txtNoticias);
         favorito = itemView.findViewById(R.id.btn_user_like);
+        share = itemView.findViewById(R.id.image_share);
     }
 
         public void bind(final Article article){
@@ -111,6 +113,24 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
                     }
                 }
             });
+
+            share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String shareBody = article.getUrl();
+                    String shareSub =  article.getTitle();
+
+                    Intent myIntent = new Intent(Intent.ACTION_SEND);
+                    myIntent.setType("text/plain");
+                    myIntent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                    myIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                    v.getContext().startActivity(Intent.createChooser(myIntent,"Compartilhar"));
+
+                    Toast.makeText(v.getContext(),"Compartilhar", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
 }
 }

@@ -1,11 +1,13 @@
 package com.example.connect.connectnews;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +38,7 @@ public class FavoritoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorito);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
         databaseReference = FirebaseDatabase.getInstance()
                 .getReference().child("usuario").child(firebaseAuth.getCurrentUser().getUid());
 
