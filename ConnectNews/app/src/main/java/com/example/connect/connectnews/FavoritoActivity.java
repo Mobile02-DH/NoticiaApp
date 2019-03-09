@@ -1,5 +1,6 @@
 package com.example.connect.connectnews;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;

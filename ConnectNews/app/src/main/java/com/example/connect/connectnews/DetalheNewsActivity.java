@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.example.connect.connectnews.R;
-import com.example.connect.connectnews.model.Article;
+
 
 public class DetalheNewsActivity extends AppCompatActivity {
 
@@ -21,9 +20,9 @@ public class DetalheNewsActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-
         webView = findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(extras.getString("url"));
     }
+
 }
