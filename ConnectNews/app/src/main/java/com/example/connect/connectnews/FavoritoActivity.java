@@ -70,7 +70,7 @@ public class FavoritoActivity extends AppCompatActivity {
             }
         });
 
-        recyclerFavorito.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext()
+       /* recyclerFavorito.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext()
                 , recyclerFavorito, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -90,7 +90,7 @@ public class FavoritoActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
-        }));
+        }));*/
 
     }
 }

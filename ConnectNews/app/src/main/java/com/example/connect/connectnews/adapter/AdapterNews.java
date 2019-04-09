@@ -2,6 +2,7 @@ package com.example.connect.connectnews.adapter;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.connect.connectnews.DetalheNewsActivity;
 import com.example.connect.connectnews.FavoritoActivity;
 import com.example.connect.connectnews.LoginActivity;
 import com.example.connect.connectnews.R;
@@ -69,6 +71,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
         private FirebaseAuth autenticacao = FirebaseAuth.getInstance();
         String emailUsuario;
         ImageView share;
+        ConstraintLayout constraintLayout;
 
 
     public ViewHolder(@NonNull View itemView) {
@@ -78,6 +81,7 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
         noticia = itemView.findViewById(R.id.txtNoticias);
         favorito = itemView.findViewById(R.id.btn_user_like);
         share = itemView.findViewById(R.id.image_share);
+        constraintLayout = itemView.findViewById(R.id.constraint_item);
     }
 
         public void bind(final Article article){
@@ -128,6 +132,16 @@ public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
                     v.getContext().startActivity(Intent.createChooser(myIntent,"Compartilhar"));
 
                     Toast.makeText(v.getContext(),"Compartilhar", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(itemView.getContext(), DetalheNewsActivity.class);
+                    intent.putExtra("url",article.getUrl());
+                    v.getContext().startActivity(intent);
                 }
             });
 

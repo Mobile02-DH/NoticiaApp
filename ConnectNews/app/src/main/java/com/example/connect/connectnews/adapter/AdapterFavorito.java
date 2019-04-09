@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Constraints;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
+import com.example.connect.connectnews.DetalheNewsActivity;
 import com.example.connect.connectnews.R;
 import com.example.connect.connectnews.model.Article;
 import com.example.connect.connectnews.model.Usuario;
@@ -60,6 +63,7 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.ViewHo
         TextView noticia;
         ImageView delete;
         ImageView share1;
+        ConstraintLayout constraintLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +73,7 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.ViewHo
             noticia = itemView.findViewById(R.id.txtNoticias);
             delete = itemView.findViewById(R.id.image_delete);
             share1 = itemView.findViewById(R.id.image_compartilhar1);
+            constraintLayout = itemView.findViewById(R.id.constraint_item2);
         }
 
         public void bind(final Article article) {
@@ -122,6 +127,16 @@ public class AdapterFavorito extends RecyclerView.Adapter<AdapterFavorito.ViewHo
                     v.getContext().startActivity(Intent.createChooser(myIntent,"Compartilhar"));
 
                     Toast.makeText(v.getContext(),"Compartilhar", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(itemView.getContext(), DetalheNewsActivity.class);
+                    intent.putExtra("url",article.getUrl());
+                    v.getContext().startActivity(intent);
                 }
             });
 

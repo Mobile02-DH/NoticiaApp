@@ -74,7 +74,7 @@ public class NewsFragment extends Fragment {
         recyclerViewNews.setHasFixedSize(true);
         recyclerViewNews.setAdapter(adapterNews);
 
-        recyclerViewNews.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),
+       /* recyclerViewNews.addOnItemTouchListener(new RecyclerItemClickListener(getContext(),
                 recyclerViewNews, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -94,7 +94,7 @@ public class NewsFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
-        }));
+        }));*/
 
         category = getArguments().getString("categoria");
 
