@@ -33,8 +33,10 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".DetalheNewsActivity" />
+        <activity android:name=".DetalheNewsActivity"
+            android:theme="@style/detalheTheme"/>
         <activity android:name=".FavoritoActivity"
+            android:theme="@style/detalheTheme"
             ></activity>
     </application>
 
